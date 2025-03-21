@@ -1,6 +1,6 @@
 # Analyze Data in a Model Car Database with MySQL Workbench Project
 ## Date March 20, 2025
-## Time 4 hours
+## Time 10 hours
 <br/>
 
 ## Project scenario
@@ -28,12 +28,16 @@ The answers to questions like those should help you formulate suggestions and re
 1. MySQL workbench
 2. PowerPoint
 3. Excel
-4. 
+   
 ## Database ER Diagram (craw's foot)
 ![ER diagran](https://github.com/nanpiyaporn/ModelCarMySQL/blob/main/Database%20ER%20diagram%20(crow's%20foot).jpeg)
 
 ## Approach
-step 1: we need to check which warehouse uses a few products:
+Step 0: 
+- We need to clean the table that does not have "N/A" in the columns
+- Make sure that the columns are not duplicates ( It shows some duplicates information of 'orderNumber' at 'orderdetails' and 'orders' table) 
+       
+Step 1: we need to check which warehouse uses a few products:
 
 ```mysql
 SELECT warehouseCode, COUNT(productCode) AS total_products, SUM(quantityInStock) AS total_stock
@@ -49,6 +53,56 @@ The outcome shows that warehouse d has fewer products and the number of products
 | a | 25  | 131688 |
 | c  | 24 | 124880  |
 | d  | 23  | 79380  |
+
+Step 2: We need to check in each warehouse how the profit is
+
+```mysql
+SELECT 
+    p.warehouseCode, 
+    COUNT(p.productCode) AS total_products, 
+    SUM(p.quantityInStock) AS total_stock, 
+    SUM(od.quantityOrdered * od.priceEach) AS total_revenue,
+    SUM(od.quantityOrdered * p.buyPrice) AS total_cost,
+    SUM((od.quantityOrdered * od.priceEach) - (od.quantityOrdered * p.buyPrice)) AS total_profit
+FROM products p
+LEFT JOIN orderdetails od ON p.productCode = od.productCode
+GROUP BY p.warehouseCode
+ORDER BY total_stock DESC;
+```
+The answer follows the first question that warehouse D makes less profits compare with other warehouse
+
+| warehouseCode  | total_products  | total_stock | total_revernue | total_cost | total_profit |
+| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
+| b  | 38  | 219183 | 3853922.49|2327710.29 |1526212.20 |
+| a | 25  | 131688 |2076063.66 |1240847.65 | 835216.01|
+| c  | 24 | 124880  | 1797559.63| 1060291.30|737268.33 | 
+| d  | 23  | 79380  | 1876644.83|1149461.12 | 727183.71|
+
+Step 3: we would like to track down how much profit in each product.
+Surprisingly! Warehouse C makes less profit than Warehouse D which means we better close Warehouse C  instead of Warehouse D because we use less work but get more profit.
+
+```mysql
+SELECT 
+    p.warehouseCode, 
+    COUNT(p.productCode) AS total_products, 
+    SUM(p.quantityInStock) AS total_stock, 
+    SUM(od.quantityOrdered * od.priceEach) AS total_revenue,
+    SUM(od.quantityOrdered * p.buyPrice) AS total_cost,
+    SUM((od.quantityOrdered * od.priceEach) - (od.quantityOrdered * p.buyPrice)) AS total_profit,
+    (SUM((od.quantityOrdered * od.priceEach) - (od.quantityOrdered * p.buyPrice)) / COUNT(p.productCode)) AS profit_per_product
+FROM products p
+LEFT JOIN orderdetails od ON p.productCode = od.productCode
+GROUP BY p.warehouseCode
+ORDER BY total_stock DESC;
+```
+The result shows
+
+| warehouseCode  | total_products  | total_stock | total_revernue | total_cost | total_profit |profilt_per_product |
+| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
+| b  | 38  | 219183 | 3853922.49|2327710.29 |1526212.20 | 1509.606528 |
+| a | 25  | 131688 |2076063.66 |1240847.65 | 835216.01| 1201.749655 |
+| c  | 24 | 124880  | 1797559.63| 1060291.30|737268.33 | 1122.174018 |
+| d  | 23  | 79380  | 1876644.83|1149461.12 | 727183.71| 1146.977461 |
 
 ## Solution
 
