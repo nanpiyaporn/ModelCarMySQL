@@ -33,12 +33,23 @@ The answers to questions like those should help you formulate suggestions and re
 ![ER diagran](https://github.com/nanpiyaporn/ModelCarMySQL/blob/main/Database%20ER%20diagram%20(crow's%20foot).jpeg)
 
 ## Approach
+step 1: we need to check which warehouse uses a few products:
+
 ```mysql
 SELECT warehouseCode, COUNT(productCode) AS total_products, SUM(quantityInStock) AS total_stock
 FROM products
 GROUP BY warehouseCode
 ORDER BY total_stock DESC;
 ```
+The outcome shows that warehouse d has fewer products and the number of products used
+
+| warehouseCode  | total_products  | total_stock |
+| ------------- | ------------- | ------------- |
+| b  | 38  | 219183 |
+| a | 25  | 131688 |
+| c  | 24 | 124880  |
+| d  | 23  | 79380  |
+
 ## Solution
 
 ## Summary
