@@ -114,6 +114,7 @@ GROUP BY p.productCode
 ORDER BY total_sold ASC;
 ```
 The result shows the 'productCode' is 'S18_3233', 'productName' is '1985 Toyota Supra is the slowest product because it cannot sell at all, and still has in stock 7733 cars.
+![slow sale](https://github.com/nanpiyaporn/ModelCarMySQL/blob/main/slowsale.jpg)
 
 ## Solution
 1. We should close the C store because we make less profit per product item, and work overload because warehouse C uses much space to collect inventories
