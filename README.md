@@ -30,7 +30,7 @@ The answers to questions like those should help you formulate suggestions and re
 3. Excel
 4. 
 ## Database ER Diagram (craw's foot)
-![ER diagran](https://lucid.app/lucidchart/807c2109-870b-4e83-b9b8-b9f754822966/edit?invitationId=inv_1cc9836c-753a-43d7-be22-8b5ec98578d6)
+![ER diagran](https://github.com/nanpiyaporn/ModelCarMySQL/blob/main/Database%20ER%20diagram%20(crow's%20foot).jpeg)
 ## Summary
 
 ## Solution
