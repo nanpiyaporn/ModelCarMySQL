@@ -127,8 +127,9 @@ JOIN orderdetails od ON o.orderNumber = od.orderNumber
 GROUP BY month
 ORDER BY total_sold DESC;
 ```
-The result shows
+The result shows that November is the most selling product months
 
+![monthly sell](https://github.com/nanpiyaporn/ModelCarMySQL/blob/main/Number%20of%20sell%20vs.%20Month.png)
 ## Solution
 1. We should close the C store because we make less profit per product item, and work overload because warehouse C uses much space to collect inventories
 
