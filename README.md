@@ -21,8 +21,7 @@ The answers to questions like those should help you formulate suggestions and re
 3. Provide analytic insights and data-driven recommendations.
 
 ## Skill demonstrated
-1. R
-2. MySQL
+1. MySQL
 
 ## Tools used
 1. MySQL workbench
@@ -104,6 +103,19 @@ The result shows
 | c  | 24 | 124880  | 1797559.63| 1060291.30|737268.33 | 1122.174018 |
 | d  | 23  | 79380  | 1876644.83|1149461.12 | 727183.71| 1146.977461 |
 
+Next: we need to analyze the inventory and sales relationship
+1. Find slow-moving products (Products with high stock but low sales might be overstocked)
+```mysql
+SELECT p.productCode, p.productName, p.quantityInStock, 
+       IFNULL(SUM(od.quantityOrdered), 0) AS total_sold
+FROM products p
+LEFT JOIN orderdetails od ON p.productCode = od.productCode
+GROUP BY p.productCode
+ORDER BY total_sold ASC;
+```
+The result shows the 'productCode' is 'S18_3233', 'productName' is '1985 Toyota Supra is the slowest product because it cannot sell at all, and still has in stock 7733 cars.
+
 ## Solution
+1. We should close the C store because we make less profit per product item, and work overload because warehouse C uses much space to collect inventories
 
 ## Summary
