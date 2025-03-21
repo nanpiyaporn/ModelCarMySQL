@@ -130,7 +130,11 @@ ORDER BY total_sold DESC;
 The result shows that November is the most selling product months
 
 ![monthly sell](https://github.com/nanpiyaporn/ModelCarMySQL/blob/main/Number%20of%20sales%20vs.%20Month.png)
-## Solution
-1. We should close the C store because we make less profit per product item, and work overload because warehouse C uses much space to collect inventories
 
-## Summary
+## Solution
+
+1. **Closure Recommendation**: Warehouse **C** should be closed as it generates the lowest profit per product while occupying a significant amount of storage space, leading to inefficiencies in inventory management.  
+2. **Stock Replenishment Strategy**: **November** is the peak sales month, so inventory should be restocked in advance to meet increased demand.  
+3. **Discontinuation Analysis**: The **1985 Toyota Supra** should be considered for removal due to a lack of demand. However, further analysis is recommended to determine the cause—whether it’s due to pricing, marketing, or product relevance—to optimize business operations.  
+
+
